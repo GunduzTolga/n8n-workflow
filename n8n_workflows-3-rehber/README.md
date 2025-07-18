@@ -1,24 +1,29 @@
 # n8n Workflows 3 Rehber
 
-Bu klasorde bulunan her Markdown dosyasi, ayni isimdeki JSON workflow dosyasinin kullanim rehberini icermektedir. Rehberlerin amaci, bu workflow'lari n8n uzerinde calistirmak isteyen kullanicilara adim adim yol gostermektir.
+Bu klasörde bulunan her Markdown dosyası, aynı isimdeki JSON workflow dosyasının kullanım rehberini içermektedir. Rehberlerin amacı, bu workflow'ları n8n üzerinde çalıştırmak isteyen kullanıcılara adım adım yol göstermektir.
 
-Ayni adlari tasiyan `../n8n_workflows-3` klasorundaki JSON dosyalarini n8n editore import ederek otomasyonlari kurabilirsiniz. Her rehberin sonunda yer alan **Detayli Kullanim Kilavuzu** bolumu tum workflow'lar icin ortak adimlari sunar.
+Aynı adları taşıyan `../n8n_workflows-3` klasöründeki JSON dosyalarını n8n editörüne içe aktararak otomasyonları kurabilirsiniz. Her rehberin sonunda yer alan **Detaylı Kullanım Kılavuzu** bölümü tüm workflow'lar için ortak adımları sunar.
 
-## Genel Izlenecek Yol
-1. Bilgisayariniza n8n kurun veya Docker ile calistirin.
-2. Ilgili JSON dosyasini n8n editore import edin.
-3. Her node icin gerekli kimlik bilgilerini ve parametreleri duzenleyin.
-4. Workflow'u test edin, sorunsuz calisiyorsa aktive edin.
+## Genel İzlenecek Yol
+1. Bilgisayarınıza n8n kurun veya Docker ile çalıştırın.
+2. İlgili JSON dosyasını n8n editörüne içe aktarın.
+3. Her node için gerekli kimlik bilgilerini ve parametreleri düzenleyin.
+4. Workflow'u test edin, sorunsuz çalışıyorsa aktive edin.
 
-Her workflow'un kendine ozel gereksinimleri olabileceginden, Markdown dosyalarinda **Ozel Ayarlar** basligi altinda ek bilgiler bulabilirsiniz. Yeni baslayanlar icin oncelikle bu README ve sonrasinda ilgili rehberleri incelemek, otomasyonlari basariyla calistirmak icin yeterli olacaktir.
+Her workflow'un kendine özel gereksinimleri olabileceğinden, Markdown dosyalarında **Özel Ayarlar** başlığı altında ek bilgiler bulabilirsiniz. Yeni başlayanlar için öncelikle bu README ve sonrasında ilgili rehberleri incelemek, otomasyonları başarıyla çalıştırmak için yeterli olacaktır.
 
-## Ornek Kurulum Senaryosu
+## Örnek Kurulum Senaryosu
 
-1. `docker run -it --rm -p 5678:5678 n8nio/n8n` komutu ile n8n'i calistirin.
-2. Tarayicinizda `http://localhost:5678` acildiginda bos bir editor goreceksiniz.
-3. Bu repodan bir JSON dosyasi indirip **Import** menusu ile editor e ekleyin.
-4. Her node uzerinde sari uyarilar varsa gerekli **Credentials** secilmemis demektir. "Add New" diyerek API anahtarlarinizi ekleyin.
-5. Sol ustteki **Execute Workflow** butonuna tiklayarak test edin.
-6. Islemler beklendigi gibi ilerliyorsa sag ustten **Active** konumuna getirerek otomasyonu devreye alin.
+1. `docker run -it --rm -p 5678:5678 n8nio/n8n` komutu ile n8n'i çalıştırın.
+2. Tarayıcınızda `http://localhost:5678` açıldığında boş bir editör göreceksiniz.
+3. Bu repodan bir JSON dosyası indirip **Import** menüsü ile editöre ekleyin.
+4. Her node üzerinde sarı uyarılar varsa gerekli **Credentials** seçilmemiş demektir. "Add New" diyerek API anahtarlarınızı ekleyin.
+5. Sol üstteki **Execute Workflow** butonuna tıklayarak test edin.
+6. İşlemler beklendiği gibi ilerliyorsa sağ üstten **Active** konumuna getirerek otomasyonu devreye alın.
 
-Kurulum sirasinda hatayla karsilasirsaniz `Executions` menusunden hata kayitlarini inceleyebilir veya rehber dosyalarindaki ek notlara goz atabilirsiniz.
+Kurulum sırasında hatayla karşılaşırsanız `Executions` menüsünden hata kayıtlarını inceleyebilir veya rehber dosyalarındaki ek notlara göz atabilirsiniz.
+
+### İpuçları ve Hata Çözümleri
+* Workflow'u ilk kez çalıştırmadan önce `Credentials` bölümünde eksik kalmadığından emin olun.
+* Docker kullanıyorsanız verileri kalıcı hale getirmek için `-v ~/.n8n:/home/node/.n8n` parametresini ekleyin.
+* Webhook içeren örneklerde URL'yi kopyalayıp test isteği göndermeden önce **Execute Workflow** butonuna basmayı unutmayın.
