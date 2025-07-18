@@ -12,7 +12,7 @@ Aşağıda bu workflow'un amacı ve temel kullanımı anlatılmıştır.
 1. n8n arayüzünde **Import** seçeneğini kullanarak bu JSON dosyasını içe aktarın.
 2. Gerekli kimlik bilgilerini ve parametreleri kendi ortamınıza göre güncelleyin.
 3. Workflow'u **Activate** ederek otomasyonu çalıştırın.
-## Detayli Kullanim Kilavuzu
+## Detaylı Kullanım Kılavuzu
 
 Bu workflow dosyasini ilk kez calistiracaksaniz asagidaki adimlari takip edin.
 
@@ -36,11 +36,11 @@ Bu workflow dosyasini ilk kez calistiracaksaniz asagidaki adimlari takip edin.
 
 
 
-### Ozel Ayarlar
+### Özel Ayarlar
 1. Workflow'u kullanmadan once her node icerisindeki **Credentials** bolumunden gerekli API anahtarlarini ekleyin.
 2. Webhook veya diger parametre alanlarini kendi ortam bilgilerinize gore duzenleyin.
 3. `Webhook` node'u varsa test URL'sini kopyalayip diger servislerde kullanmayi unutmayin.
 
-## Sikca Sorulan Sorular
+## Sıkça Sorulan Sorular
 * **Workflow calismiyor, ne yapabilirim?** `Executions` ekranindan hata mesajlarini inceleyin ve eksik credential ayarlarini tamamlayin.
 * **Webhook URL'sini nereden alirim?** `Webhook` node'unu duzenlerken sag ustte gorunen URL'yi kopyalayip ilgili platforma yapistirabilirsiniz.
