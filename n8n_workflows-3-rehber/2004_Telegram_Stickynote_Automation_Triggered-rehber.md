@@ -1,82 +1,75 @@
-# OpenSea AI-Powered Insights via Telegram
+# Telegram Üzerinden OpenSea İçgörüleri
 
-Bu n8n workflow dosyası, otomasyon adımlarını içeren bir JSON dosyasıdır.
-Aşağıda bu workflow'un amacı ve temel kullanımı anlatılmıştır.
+Bu n8n workflow'u, OpenSea pazarına ait verileri Telegram botu üzerinden sorgulamak için hazırlanmıştır. Bir Telegram botu aracılığıyla gelen sorular ilgili yardımcı akışlara yönlendirilir ve sonuçlar yine Telegram üzerinden gönderilir.
 
 ## Workflow Açıklaması
-# OpenSea AI-Powered Insights System (n8n) - Full Integration Guide
 
-## 🚀 System Overview
-The **OpenSea AI-Powered Insights System** is a fully automated n8n workflow that connects multiple agent tools to deliver **real-time NFT market insights via Telegram**. This system consists of **four interconnected workflows**:
-
-1. **OpenSea AI-Powered Insights via Telegram** (Main Supervisor)  
-2. **OpenSea Analytics Agent Tool** (Market Trends & Collection Stats)  
-3. **OpenSea Marketplace Agent Tool** (Live Listings, Offers, and Orders)  
-4. **OpenSea NFT Agent Tool** (Metadata, Ownership & Payment Tokens)
-
-These agents work **in sync** under the **Supervisor AI**, which determines the appropriate agent(s) to use based on user queries. Responses are structured and sent back via **Telegram** for real-time insights.
+Sistem dört ayrı agent workflow'undan oluşur: Analiz Aracı, Pazar Yeri Aracı, NFT Aracı ve bunları yöneten Süpervizör. Kullanıcı Telegram üzerinden soru gönderdiğinde Süpervizör ilgili agent'ı çalıştırır ve cevabı kullanıcıya iletir.
 
 ---
 
-## 🔗 **System Architecture**
+## Kurulum Talimatları
 
-### **🔹 Core Workflow: OpenSea AI-Powered Insights via Telegram**
-- Acts as the **brain and command center**.
-- Receives queries from **Telegram Chat**.
-- Determines which **agent(s)** should process the request.
-- Aggregates and formats results.
-- Sends structured responses back to the Telegram user.
+### 1️⃣ Ana Süpervizörü (Telegram Workflow) Kurma
+1. [BotFather](https://t.me/botfather) ile bir Telegram botu oluşturun ve aldığınız API anahtarını kaydedin.
+2. Bu anahtarı n8n'deki **Telegram Trigger** düğümüne tanımlayın.
+3. Kullanıcı mesajlarını almak için **Chat Message Received** düğümünü kurun.
+4. Konuşma geçmişini takip etmek için **Session ID** düğümünü yapılandırın.
+5. Mesajları işlemek üzere **AI Supervisor Brain** düğümünü bağlayın.
+6. Üç farklı agent workflow'unu **Tool Workflow** düğümleri üzerinden bu akışa ekleyin.
+7. Sonuçları Telegram'a göndermek için **Telegram** düğümünü kullanın.
 
-### **🔹 Supporting Agent Tools**
-Each **agent tool** is a separate n8n workflow with a specific function:
+### 2️⃣ Agent Workflow'larını Yapılandırma
+Her agent, Telegram akışına bağlı ayrı bir workflow'dur:
 
-1️⃣ **OpenSea Analytics Agent** → Retrieves **market trends, sales history, transaction data**.  
-2️⃣ **OpenSea Marketplace Agent** → Fetches **NFT listings, offers, best prices, and order details**.  
-3️⃣ **OpenSea NFT Agent** → Retrieves **NFT metadata, ownership records, traits, and payment token data**.
+**A. OpenSea Analytics Agent** – Piyasa trendleri ve işlem geçmişini getirir.
+**B. OpenSea Marketplace Agent** – NFT liste ve tekliflerindeki en iyi fiyatları çeker.
+**C. OpenSea NFT Agent** – NFT metadata ve sahiplik bilgilerini sunar.
 
-The **Supervisor AI (Telegram Workflow)** calls these agent workflows as needed.
-
----
-
-## 🛠 **Setup Instructions**
-
-### **1️⃣ Setting Up the Main Supervisor (Telegram Workflow)**
-1. **Create a Telegram Bot** using [BotFather](https://t.me/botfather).
-2. **Copy the API Key** and connect it to n8n’s **Telegram Trigger Node**.
-3. Set up the **Chat Message Received Node** to capture user queries.
-4. Configure the **Session ID Node** to track conversation history.
-5. Link the **AI Supervisor Brain (GPT-4o Mini)** to process messages.
-6. Connect it to the **three agent tools** using **Tool Workflow Nodes**.
-7. Send output back to Telegram using the **Telegram Node**.
-
-✅ **This setup enables Telegram interaction with all OpenSea agents.**
-
-### **2️⃣ Configuring the OpenSea Agent Tools**
-Each agent tool must be linked to the main workflow:
-
-**A. OpenSea Analytics Agent**
-- Retrieves NFT market trends & transaction history.
-- Requires **collection slug, wallet address, or transaction filters**.
-
-**B. OpenSea Marketplace Agent**
-- Fetches NFT listings, offers, and orders.
-- Requires **collection slug, token ID, or order hash**.
-
-**C. OpenSea NFT Agent**
-- Retrieves NFT metadata, traits, and ownership data.
-- Requires **wallet address, contract address, or token ID**.
-
-### **3️⃣ Connecting the Agents to the Main Workflow**
-Each **Tool Workflow Node** inside the **Telegram Supervisor Workflow** must be configured to pass the query **to the correct agent tool**.
-
-Example:
-- User asks: **“Find the cheapest listing for Bored Ape #1234”** → **Marketplace Agent is activated**.
-- User asks: **“Retrieve all NFTs owned by 0xABC...”** → **NFT Agent is activated**.
-- User asks: **“Compare last 3 months’ sales volume of Azuki and Moonbirds”** → **Analytics Agent is activated**.
-
----
+### 3️⃣ Agent'ları Süpervizöre Bağlama
+Telegram akışındaki her **Tool Workflow** düğümünde sorguyu doğru agent'a iletecek şekilde ayarlar yapın.
 
 ## Kullanım Adımları
 1. n8n arayüzünde **Import** seçeneğini kullanarak bu JSON dosyasını içe aktarın.
 2. Gerekli kimlik bilgilerini ve parametreleri kendi ortamınıza göre güncelleyin.
 3. Workflow'u **Activate** ederek otomasyonu çalıştırın.
+## Detaylı Kullanım Kılavuzu
+
+Bu workflow dosyasını ilk kez çalıştıracaksanız aşağıdaki adımları takip edin.
+
+1. **n8n kurulumunu yapın**
+   - `npm` yöntemi: `npx n8n` komutuyla yerel ortamda çalıştırabilirsiniz.
+   - Docker yöntemi: `docker run -it --rm -p 5678:5678 n8nio/n8n` komutu ile çalıştırın.
+   - Sonrasında tarayıcınızdan `http://localhost:5678` adresine erişerek n8n editörüne ulaşın.
+2. **Workflow'u içe aktarın**
+   - Editörde sağ üstteki **Import** menüsünden `Import from File` seçeneğini tıklayın.
+   - Bu repodaki ilgili JSON dosyasını seçin ve kaydedin.
+3. **Kimlik bilgilerini tanımlayın**
+   - Workflow içerisinde işlem yapan her node ilgili servise bağlanmak için API anahtarına ihtiyaç duyar.
+   - Node'u açıp **Credentials** bölümünden yeni bir kimlik bilgisi oluşturun veya var olanı seçin.
+4. **Parametreleri özelleştirin**
+   - Gerekli alanlara (webhook URL, anahtar kelimeler, zamanlayıcı vb.) kendi değerlerinizi girin.
+5. **Çalıştırıp doğrulayın**
+   - Üst menüden **Execute Workflow** diyerek testi gerçekleştirin.
+   - Beklenen sonuçları alırsanız **Activate** diyerek otomasyonu devreye alın.
+6. **Hata durumunda**
+   - `Executions` sekmesinden logları inceleyebilir, hatalı node'ları düzelterek yeniden deneyebilirsiniz.
+7. **Logları inceleyin ve ilerlemeyi kaydedin**
+   - Test yürütmesinden sonra `Executions` sayfasında her adımın çıktısını görebilirsiniz.
+   - Gerekirse **Save Execution Progress** seçeneğini açarak ayrıntılı log tutabilirsiniz.
+8. **Workflow'u ihtiyacınıza göre kişiselleştirin**
+   - Node'ları kopyalayıp parametreleri değiştirerek akışı genişletebilirsiniz.
+   - Değişikliklerden sonra tekrar **Execute Workflow** deyip sonucu kontrol edin.
+
+### Özel Ayarlar (2004)
+1. Telegram üzerinden [@BotFather](https://t.me/BotFather) ile bir bot oluşturun ve aldığınız **bot tokenini** kaydedin.
+2. n8n editöründe `Telegram Trigger` düğümünün **Credentials** kısmına bu bot tokenini tanımlayın.
+3. Aynı düğümde `Chat ID` alanını botun mesajlaşacağı kullanıcı veya grup ID'si ile doldurun.
+4. Workflow'da kullanılan diğer "agent" workflow'larını da n8n'e import edip `Tool Workflow` düğümlerinde ilgili isimleri seçmeyi unutmayın.
+5. Test mesajını Telegram üzerinden göndererek sistemin doğru çalıştığını kontrol edin.
+6. Uzun süreli kullanım için `Telegram Trigger` düğümündeki polling ayarlarını ihtiyacınıza göre düzenleyin.
+
+## Sıkça Sorulan Sorular
+* **Telegram botu mesaj almıyor, neden?** Botu oluşturduktan sonra en az bir kez sohbet penceresinden mesaj gönderin ve botun gizlilik ayarlarının doğru olduğundan emin olun.
+* **Agent workflow'larına nasıl parametre geçerim?** `Tool Workflow` nodelarındaki `Input` alanlarını düzenleyerek ihtiyacınız olan parametreleri iletebilirsiniz.
+* **Polling ne kadar sık yapılmalı?** Mesaj trafiğine göre `Telegram Trigger` düğümündeki interval değerini ihtiyacınıza göre ayarlayabilirsiniz.
