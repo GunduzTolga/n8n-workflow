@@ -35,3 +35,36 @@ This workflow was created using n8n 1.82.3.
 1. n8n arayüzünde **Import** seçeneğini kullanarak bu JSON dosyasını içe aktarın.
 2. Gerekli kimlik bilgilerini ve parametreleri kendi ortamınıza göre güncelleyin.
 3. Workflow'u **Activate** ederek otomasyonu çalıştırın.
+## Detayli Kullanim Kilavuzu
+
+Bu workflow dosyasini ilk kez calistiracaksaniz asagidaki adimlari takip edin.
+
+1. **n8n kurulumunu yapin**  
+   - `npm` yontemi: `npx n8n` komutuyla yerel ortamda calistirabilirsiniz.  
+   - Docker yontemi: `docker run -it --rm -p 5678:5678 n8nio/n8n` komutu ile calistirin.  
+   - Sonrasinda tarayicinizdan `http://localhost:5678` adresine eriserek n8n editorune ulasin.
+2. **Workflow'u ice aktarın**  
+   - Editorde sag ustteki **Import** menusunden `Import from File` secenegini tiklayin.  
+   - Bu repodaki ilgili JSON dosyasini secin ve kaydedin.
+3. **Kimlik bilgilerini tanimlayin**  
+   - Workflow icerisinde islem yapan her node ilgili servise baglanmak icin API anahtarina ihtiyac duyar.  
+   - Node'u acip **Credentials** bolumunden yeni bir kimlik bilgisi olusturun veya var olani secin.
+4. **Parametreleri ozellestirin**  
+   - Gerekli alanlara (webhook URL, anahtar kelimeler, zamanlayici vb.) kendi degerlerinizi girin.
+5. **Calistirip dogrulayin**  
+   - Ust menuden **Execute Workflow** diyerek testi gerceklestirin.  
+   - Beklenen sonuclari alirsaniz **Activate** diyerek otomasyonu devreye alin.
+6. **Hata durumunda**  
+   - `Executions` sekmesinden loglari inceleyebilir, hatali node'lari duzelterek yeniden deneyebilirsiniz.
+
+### Ozel Ayarlar (2002)
+1. Google Cloud hesabinizda [API Keys](https://console.cloud.google.com/apis/credentials) bolumunden yeni bir **API anahtari** olusturun.
+2. n8n editorunde `Set: Define Initial Variables` dugumunu acin ve `apiKey` alanina bu anahtari yazin.
+3. `youtubeURL` alanina analiz etmek istediginiz YouTube videosunun tam baglantisini girin.
+4. Workflow'u test ettiginizde cikti olarak hem video ozetini hem de transcript dosyasini alabilirsiniz.
+5. Buyuk videolar icin `maxResults` degerini API limitlerini asmamak icin uygun sekilde ayarlayin.
+
+## Sikca Sorulan Sorular
+* **Video linki calismiyor, ne yapmaliyim?** Videonun herkese acik oldugundan emin olun ve URL'nin dogru kopyalandigini kontrol edin.
+* **Ciktilari nerede gorecegim?** Workflow sonunda olusan veriler `Webhook Response` veya eklediginiz diger cikti nodelarinda goruntulenir. Dilerseniz Notion, Google Docs gibi baska servislere baglayabilirsiniz.
+* **API anahtarim hatali mi?** `Set: Define Initial Variables` node'undaki `apiKey` alanini tekrar kontrol edin ve gecerli bir anahtar girdiginizden emin olun.
